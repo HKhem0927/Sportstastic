@@ -1,8 +1,8 @@
 var teams = ['Philadelphia Phillies', 'Philadelphia Eagles' , 'Philadelphia 76ers', 'Philadelphia Flyers' , 'Philadelphia Union', 'Rutgers Football'];
 
-	function renderButtons(){ 
+	function showButtons(){ 
 
-		$('#buttonsView').empty();
+		$('#windowButtons').empty();
 
 		for (var i = 0; i < teams.length; i++){
 
@@ -10,13 +10,13 @@ var teams = ['Philadelphia Phillies', 'Philadelphia Eagles' , 'Philadelphia 76er
 		    bttn.addClass('team');
 		    bttn.attr('data-name', teams[i]);
 		    bttn.text(teams[i]);
-		    $('#buttonsView').append(bttn);
+		    $('#windowButtons').append(bttn);
 		    
 		}
 	}
 
 
-	function refAndRenderGifs(){
+	function attachGifs(){
 
 		var team = $(this).data('name');
 		var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + team + "&api_key=dc6zaTOxFJmzC&limit=10";
@@ -32,15 +32,16 @@ var teams = ['Philadelphia Phillies', 'Philadelphia Eagles' , 'Philadelphia 76er
 
             for (var i = 0; i < results.length; i++) {
 
-				var teamDiv = $("#giphyView").append('<div>');
+				var teamDiv = $("#windowGifs").append('<div>');
 
 				var ratingData = results[i].rating;
 				var rating = $(teamDiv).append('<div>');
 				rating.append('<h4><b>Rating: </b>' + ratingData + '</h4>');
 
+
 				var teamData = results[i].team;
 
-				var image = $('<img>')
+				var image = $('<br><img></br>')
 				rating.append(image);
 
 				image.addClass('teamImage').attr('src', results[i].images.fixed_height_still.url).attr('data-state', 'still').attr('data-animate', results[i].images.fixed_height.url).attr('data-still', results[i].images.fixed_height_still.url);
@@ -49,12 +50,12 @@ var teams = ['Philadelphia Phillies', 'Philadelphia Eagles' , 'Philadelphia 76er
 	}
 
 
-	$('#addGiphy').on('click', function(){
+	$('#addGif').on('click', function(){
 
-		var teamInput = $('#giphy-input').val().trim();
+		var teamInput = $('#gif-input').val().trim();
 		teams.push(teamInput);
 
-		renderButtons();
+		showButtons();
 
 		return false;
 
@@ -76,6 +77,6 @@ var teams = ['Philadelphia Phillies', 'Philadelphia Eagles' , 'Philadelphia 76er
             }
     });
 
-	renderButtons();
+	showButtons();
 
-	$(document).on('click', '.team', refAndRenderGifs);
+	$(document).on('click', '.team', attachGifs);
