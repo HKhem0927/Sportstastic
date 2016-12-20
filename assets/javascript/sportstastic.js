@@ -38,7 +38,7 @@ var teams = ['Philadelphia Phillies', 'Philadelphia Eagles' , 'Philadelphia 76er
 				var rating = $(teamDiv).append('<div>');
 				rating.append('<h4><b>Rating: </b>' + ratingData + '</h4>');
 
-				var teamSlugData = results[i].slug;
+				var teamData = results[i].team;
 
 				var image = $('<img>')
 				rating.append(image);
